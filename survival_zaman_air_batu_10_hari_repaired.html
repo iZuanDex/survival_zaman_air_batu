@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Survival Zaman Air Batu | Misi Bertahan Hidup</title>
+<style>
+:root{--navy:#123a56;--blue:#17628a;--ice:#dff6ff;--cyan:#7fe3f3;--gold:#ffd166;--red:#ff6b6b;--green:#4ecb91;--panel:#f8fdff}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#14384d;background:linear-gradient(180deg,#0d314b,#1c6687 58%,#c3eff9);min-height:100vh}
+header{padding:22px 18px 16px;text-align:center;color:white;background:radial-gradient(circle at 50% 120%,#72d8ec 0,#246c91 43%,#102f4a 100%);border-bottom:5px solid #7fe3f3}
+.kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:#b8f4ff;font-weight:900}
+h1{margin:5px 0;font-size:clamp(1.8rem,4vw,3rem);line-height:1.05;text-shadow:0 4px 0 #0b2a40}
+header p{margin:10px auto 0;max-width:700px;color:#e7faff}
+.wrap{max-width:1240px;margin:18px auto;padding:0 14px 30px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.8fr);gap:16px}
+.panel{background:var(--panel);border:2px solid #a9e8f6;border-radius:22px;box-shadow:0 12px 30px #082b4433;overflow:hidden}
+.panel-head{padding:14px 18px;background:#e6f9ff;border-bottom:1px solid #b8eaf5;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.panel-head h2{margin:0;font-size:1.12rem;color:#123d59}.pill{font-size:.76rem;background:#123d59;color:white;border-radius:99px;padding:5px 10px;font-weight:800}
+.scene{position:relative;min-height:330px;transition:filter .8s,background .8s;padding:24px 20px;background:linear-gradient(#9ee7f8 0%,#e1f9ff 42%,#c8edf7 43%,#8acde4 100%);overflow:hidden}
+.scene.night{filter:saturate(.75) brightness(.72)}.scene.night:after{content:"🌙 ✦ · ✧ · ✦";position:absolute;inset:0;background:linear-gradient(#0e315766,#1a537433);color:#fff;padding:16px;font-size:1.25rem;pointer-events:none;z-index:1}.scene.storm:before{content:"🌨️  🌨️  🌨️";position:absolute;inset:0;background:#dff8ff99;display:flex;align-items:center;justify-content:center;font-size:2.5rem;z-index:3;pointer-events:none;animation:snowPass 1.2s linear 2}@keyframes snowPass{0%{transform:translateX(-18px);opacity:.25}50%{opacity:1}100%{transform:translateX(18px);opacity:.35}}.sun{position:absolute;top:24px;right:38px;width:56px;height:56px;border-radius:50%;background:#fff4bd;box-shadow:0 0 35px #fff9c2}
+.mountain{position:absolute;bottom:34%;width:0;height:0;border-left:110px solid transparent;border-right:110px solid transparent;border-bottom:180px solid #7dbbd3;opacity:.8}
+.m1{left:-25px}.m2{left:27%;border-bottom-color:#9acfe0;border-left-width:145px;border-right-width:145px}.m3{right:-35px;border-bottom-color:#5e9fbd}
+.snowline{position:absolute;bottom:0;left:0;right:0;height:44%;background:linear-gradient(160deg,#f9feff,#b6eaf7);clip-path:polygon(0 22%,18% 8%,34% 20%,51% 3%,70% 17%,86% 0,100% 13%,100% 100%,0 100%)}
+.cave{position:absolute;bottom:18px;left:6%;font-size:clamp(3rem,8vw,5.5rem);filter:drop-shadow(0 4px 0 #5d8da0)}
+.mammoth{position:absolute;bottom:42px;right:12%;font-size:clamp(4rem,10vw,7rem);filter:drop-shadow(0 5px 0 #507f91);animation:bob 3s ease-in-out infinite}
+.campfire{position:absolute;bottom:30px;left:34%;font-size:3rem;filter:drop-shadow(0 0 12px #ffb54a)}
+.explorer{position:absolute;bottom:34px;left:50%;font-size:3.5rem;filter:drop-shadow(0 4px 0 #668fa0)}
+.weather{position:absolute;top:18px;left:18px;background:#ffffffc9;padding:8px 12px;border-radius:12px;font-weight:900;font-size:.86rem;backdrop-filter:blur(4px)}
+.scene-message{position:absolute;left:18px;right:18px;top:72px;text-align:center;font-weight:900;color:#123d59;text-shadow:0 1px white}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.stats{padding:15px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;background:#f7fdff}
+.stat{padding:11px;border-radius:14px;background:white;border:1px solid #c6edf6}.stat-top{display:flex;justify-content:space-between;gap:4px;font-size:.78rem;font-weight:900;color:#315c70}.stat-value{font-size:1.35rem;font-weight:950;margin-top:5px}.bar{height:9px;background:#e4f2f6;border-radius:99px;overflow:hidden;margin-top:7px}.fill{height:100%;width:75%;border-radius:99px;transition:width .35s;background:var(--green)}.fill.cold{background:#4aa8e5}.fill.food{background:#f3b846}.fill.shelter{background:#a78bfa}
+.actions{padding:15px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+button{border:0;border-radius:13px;padding:12px 13px;font:inherit;font-weight:900;cursor:pointer;transition:transform .12s,filter .12s;box-shadow:0 4px 0 #123b5220}button:hover{filter:brightness(1.04);transform:translateY(-1px)}button:active{transform:translateY(2px);box-shadow:none}button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.primary{background:#14577a;color:white}.blue{background:#d7f5ff;color:#164967;border:1px solid #9de1f0}.gold{background:#ffe7a3;color:#65470b}.green{background:#c9f6df;color:#13583a}.red{background:#ffe0e0;color:#8d3030}
+.log{padding:0 15px 15px}.log h3{margin:0 0 8px}.log-list{max-height:125px;overflow:auto;padding:10px 12px;border-radius:12px;background:#edf9fd;border:1px solid #d0edf5;font-size:.88rem}.log-list p{margin:4px 0}
+.side{display:flex;flex-direction:column;gap:16px}.objective{padding:16px}.objective h2{margin:0 0 10px}.objective p{margin:7px 0;color:#43677a}.mission-list{display:grid;gap:8px;margin-top:12px}.mission{display:flex;align-items:center;gap:10px;padding:10px;background:white;border:1px solid #c9edf5;border-radius:12px;font-weight:800}.mission span{font-size:1.4rem}
+.card-content{padding:16px}.card-content h2{margin:0 0 8px}.resource-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.resource{padding:12px;border-radius:13px;background:white;border:1px solid #c9edf5}.resource strong{display:block}.resource small{color:#56798b}
+.progress{height:8px;background:#e2f0f5;border-radius:99px;overflow:hidden;margin:10px 0}.progress div{height:100%;width:0;background:#20a9c2;transition:width .3s}
+.modal{position:fixed;inset:0;background:#071e2bd9;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}.modal.show{display:flex}.dialog{width:min(620px,100%);max-height:90vh;overflow:auto;background:#f8fdff;border:3px solid #8be5f5;border-radius:22px;box-shadow:0 24px 70px #0005}.dialog-head{padding:17px 20px;background:#e3f9ff}.dialog-head h2{margin:0}.dialog-body{padding:20px}.question{font-size:1.13rem;font-weight:900;line-height:1.4;margin:0 0 14px}.answers{display:grid;gap:9px}.answer{background:white;border:2px solid #c7eaf3;text-align:left;color:#173e54}.answer.correct{background:#d2f8e4;border-color:#3ab87a}.answer.wrong{background:#ffe1e1;border-color:#f07b7b}.feedback{margin-top:12px;padding:11px;border-radius:12px;background:#eaf8fd;display:none}.feedback.show{display:block}.dialog-foot{padding:0 20px 20px;display:flex;justify-content:flex-end;gap:8px}
+.end{padding:20px;text-align:center}.end h2{font-size:2rem;margin:5px}.end .big{font-size:4rem}
+footer{text-align:center;color:#e6fbff;padding:0 15px 22px;font-size:.86rem}
+@media(max-width:850px){.wrap{grid-template-columns:1fr}.scene{min-height:300px}.mammoth{right:5%}.stats{grid-template-columns:1fr}.stat{display:grid;grid-template-columns:1fr auto;align-items:center}.stat .bar{grid-column:1/-1}.actions{grid-template-columns:1fr 1fr}}
+
+#mainMenu{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto;background:radial-gradient(circle at 50% 30%,#2e86a8 0,#123e5d 48%,#071d31 100%);color:#fff}
+.menu-card{position:relative;width:min(920px,100%);border:2px solid #9aeaff;border-radius:28px;overflow:hidden;box-shadow:0 28px 90px #0008;background:linear-gradient(145deg,#effcff 0%,#d8f6ff 56%,#b3e6f6 100%);color:#123a56}
+.menu-sky{position:relative;min-height:245px;padding:26px 24px 20px;text-align:center;overflow:hidden;background:linear-gradient(#a7e8fa 0%,#e6fbff 64%,#c0eaf7 65%,#79bad4 100%)}
+.menu-sky:before{content:"";position:absolute;inset:auto -4% -45px;height:150px;background:#f7feff;clip-path:polygon(0 35%,18% 4%,34% 35%,51% 0,69% 27%,83% 5%,100% 32%,100% 100%,0 100%)}
+.menu-sun{position:absolute;right:12%;top:24px;font-size:3rem;filter:drop-shadow(0 0 15px #fff3a9)}
+.menu-mammoth{position:absolute;left:9%;bottom:20px;font-size:clamp(4rem,10vw,6.3rem);z-index:1;filter:drop-shadow(0 5px 0 #639bb1);animation:bob 3s ease-in-out infinite}
+.menu-explorer{position:absolute;right:13%;bottom:22px;font-size:clamp(3rem,7vw,4.8rem);z-index:1;filter:drop-shadow(0 4px 0 #639bb1)}
+.menu-title{position:relative;z-index:2;margin:0 auto;color:#123b58;font-size:clamp(2rem,5vw,3.7rem);line-height:1;text-shadow:0 3px 0 #fff;font-weight:1000;letter-spacing:-.03em}
+.menu-subtitle{position:relative;z-index:2;margin:10px 0 0;color:#1c6688;font-size:clamp(1rem,2.6vw,1.35rem);font-weight:950}
+.menu-body{padding:22px clamp(16px,4vw,34px) 28px;text-align:center}
+.menu-intro{max-width:720px;margin:0 auto 18px;color:#315c70;font-size:1rem;line-height:1.6}
+.menu-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 auto 18px}
+.menu-pills span{background:#fff;border:1px solid #b9e8f3;border-radius:99px;padding:8px 12px;font-weight:850;font-size:.88rem}
+.menu-objectives{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 22px;text-align:left}
+.menu-objective{padding:13px;border-radius:15px;background:#fff;border:1px solid #b9e8f3}
+.menu-objective b{display:block;margin-bottom:4px}.menu-objective span{font-size:.88rem;color:#55798a;line-height:1.4}
+.start-game{width:min(420px,100%);padding:15px 20px;border-radius:15px;background:linear-gradient(135deg,#14577a,#197da0);color:white;font-size:1.12rem;box-shadow:0 6px 0 #0c3b55}
+.menu-note{margin:12px 0 0;font-size:.8rem;color:#5b7b8c}
+@media(max-width:650px){.menu-sky{min-height:220px}.menu-mammoth{left:2%;bottom:14px}.menu-explorer{right:3%;bottom:17px}.menu-objectives{grid-template-columns:1fr}.menu-body{padding-top:18px}.menu-intro{font-size:.93rem}}
+
+
+.explorer.exploring{animation:walkJourney 1.4s ease-in-out forwards;z-index:5}
+@keyframes walkJourney{0%{transform:translateX(0) translateY(0)}20%{transform:translateX(20px) translateY(-10px)}45%{transform:translateX(48px) translateY(0)}70%{transform:translateX(78px) translateY(-9px)}100%{transform:translateX(105px) translateY(0)}}
+.scene.place-forest{background:linear-gradient(#a8e7f8 0%,#e8fbff 40%,#b8e8f5 41%,#8bc8dc 100%)}
+.scene.place-forest:after{content:"🌲   🌲    🌲";position:absolute;bottom:26%;left:14%;font-size:2.2rem;letter-spacing:.2rem;z-index:2;pointer-events:none}
+.scene.place-cave{background:linear-gradient(#a6dff3 0%,#e4f9ff 42%,#b2ddec 43%,#719eb7 100%)}
+.scene.place-cave:after{content:"🪨  ⛰️  🪨";position:absolute;bottom:26%;left:16%;font-size:2.3rem;z-index:2;pointer-events:none}
+.scene.place-lake{background:linear-gradient(#b7f0ff 0%,#e9fcff 40%,#b7e7f5 41%,#72c3db 100%)}
+.scene.place-lake:after{content:"🧊  💧  🧊";position:absolute;bottom:24%;left:20%;font-size:2.5rem;z-index:2;pointer-events:none}
+.scene.place-valley{background:linear-gradient(#9bdaf0 0%,#d9f5ff 42%,#c8eefa 43%,#8ac8df 100%)}
+.scene.place-valley:after{content:"🌾  🪨  🌿";position:absolute;bottom:25%;left:18%;font-size:2.3rem;z-index:2;pointer-events:none}
+</style>
+</head>
+<body>
+
+<div id="mainMenu">
+  <div class="menu-card">
+    <div class="menu-sky">
+      <div class="menu-sun">☀️</div>
+      <div class="menu-mammoth">🦣</div>
+      <div class="menu-explorer">🧭</div>
+      <h1 class="menu-title">SURVIVAL<br>ZAMAN AIR BATU</h1>
+      <p class="menu-subtitle">Misi Bertahan Hidup ❄️</p>
+    </div>
+    <div class="menu-body">
+      <div class="menu-pills"><span>📚 Sejarah Tahun 4</span><span>🌨️ 10 Hari Ekspedisi</span><span>🦣 Bersama Momo</span></div>
+      <p class="menu-intro">Satu perubahan besar sedang berlaku di dunia ais. Suhu semakin sejuk, ribut salji boleh muncul pada bila-bila masa, dan bekalan semakin terhad. Bolehkah kamu membantu pengembara kita bertahan sehingga hari kesepuluh?</p>
+      <div class="menu-objectives">
+        <div class="menu-objective"><b>🍖 Urus bekalan</b><span>Cari makanan dan kumpulkan sumber untuk terus bertahan.</span></div>
+        <div class="menu-objective"><b>🔥 Kekal hangat</b><span>Gunakan kayu, api dan tempat perlindungan dengan bijak.</span></div>
+        <div class="menu-objective"><b>🧠 Belajar sambil bermain</b><span>Jawab soalan tentang Zaman Air Batu dan perubahan alam sekitar.</span></div>
+      </div>
+      <button class="start-game" onclick="startGame()">🚩 MULAKAN EKSPEDISI</button>
+      <p class="menu-note">Petua: pantau kesihatan, suhu badan dan makanan. Momo boleh membantu sekali sehari!</p>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="kicker">Sejarah Tahun 4 • Unit Zaman Air Batu</div>
+  <h1>❄️ SURVIVAL ZAMAN AIR BATU</h1>
+  <p>Misi Bertahan Hidup: urus tenaga, makanan dan perlindungan sambil belajar tentang dunia yang berubah!</p>
+</header>
+<main class="wrap">
+<section class="panel">
+  <div class="panel-head"><h2>🧭 Tapak Ekspedisi</h2><span class="pill" id="dayPill">HARI 1 / 10</span></div>
+  <div class="scene" id="scene">
+    <div class="sun"></div><div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div><div class="snowline"></div>
+    <div class="weather" id="weather">🌨️ Cuaca: Sejuk</div><div class="weather" id="timeBadge" style="top:auto;left:auto;right:16px;bottom:16px">☀️ Siang</div>
+    <div class="scene-message" id="sceneMessage">Cari sumber sebelum ribut salji tiba!</div>
+    <div class="cave">🪨</div><div class="campfire" id="fire">🔥</div><div class="explorer" id="explorer">🧑‍🚀</div><div class="mammoth" id="momo">🦣</div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div><div class="stat-top">❤️ KESIHATAN</div><div class="stat-value" id="healthNum">100%</div></div><div class="bar"><div class="fill" id="healthBar"></div></div></div>
+    <div class="stat"><div><div class="stat-top">🌡️ SUHU BADAN</div><div class="stat-value" id="warmNum">75%</div></div><div class="bar"><div class="fill cold" id="warmBar"></div></div></div>
+    <div class="stat"><div><div class="stat-top">🍖 BEKALAN MAKANAN</div><div class="stat-value" id="foodNum">60%</div></div><div class="bar"><div class="fill food" id="foodBar"></div></div></div>
+  </div>
+  <div class="actions">
+    <button class="primary" id="gatherBtn" onclick="action('gather')">🫐 Cari makanan</button>
+    <button class="gold" id="fireBtn" onclick="action('fire')">🔥 Nyalakan api</button>
+    <button class="blue" id="shelterBtn" onclick="action('shelter')">🛖 Kukuhkan tempat berlindung</button>
+    <button class="green" id="exploreBtn" onclick="action('explore')">🧭 Teroka kawasan</button><button class="blue" id="momoBtn" onclick="momoHelp()">🦣 Minta bantuan Momo</button>
+  </div>
+  <div class="log"><h3>📜 Catatan ekspedisi</h3><div class="log-list" id="logList"><p>• Ekspedisi bermula. Rancang tindakan dengan bijak!</p></div></div>
+</section>
+<aside class="side">
+  <section class="panel objective">
+    <h2>🎯 Misi Utama</h2>
+    <p>Bertahan selama <strong>10 hari</strong> dan kumpulkan pengetahuan tentang Zaman Air Batu.</p>
+    <div class="mission-list">
+      <div class="mission"><span>🥫</span><div><div>Urus bekalan</div><small id="missionFood">Cari makanan sekurang-kurangnya sekali</small></div></div>
+      <div class="mission"><span>🔥</span><div><div>Kekalkan kehangatan</div><small id="missionFire">Nyalakan api sekurang-kurangnya sekali</small></div></div>
+      <div class="mission"><span>🛖</span><div><div>Bina perlindungan</div><small id="missionShelter">Kukuhkan tempat berlindung</small></div></div>
+      <div class="mission"><span>🧠</span><div><div>Jawab soalan Sejarah</div><small id="missionQuiz">0 soalan dijawab betul</small></div></div>
+    </div>
+    <div class="progress"><div id="progressBar"></div></div>
+    <p><strong id="progressText">Kemajuan misi: 0%</strong></p>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><h2>🎒 Inventori</h2><span class="pill">SUMBER</span></div>
+    <div class="card-content">
+      <div class="resource-grid">
+        <div class="resource"><strong>🫐 Makanan</strong><span id="foodStock">3 unit</span><br><small>Tenaga untuk terus hidup</small></div>
+        <div class="resource"><strong>🪵 Kayu</strong><span id="woodStock">2 unit</span><br><small>Bahan api dan tempat tinggal</small></div>
+        <div class="resource"><strong>🪨 Batu</strong><span id="stoneStock">1 unit</span><br><small>Bahan untuk mengukuhkan tempat</small></div>
+        <div class="resource"><strong>🏅 Mata ilmu</strong><span id="scoreStock">0 mata</span><br><small>Ganjaran jawapan betul</small></div>
+      </div>
+    </div>
+  </section>
+  <section class="panel">
+    <div class="card-content">
+      <h2>💡 Tip Pengembara</h2>
+      <p id="tipText">Cuaca sejuk boleh menurunkan suhu badan. Kumpulkan kayu untuk menyalakan api.</p><p><strong id="momoStatus">Momo boleh membantu sekali sehari.</strong></p>
+      <button class="blue" style="width:100%;margin-top:8px" onclick="showQuestion(true)">🧠 Cabaran ilmu tambahan</button>
+    </div>
+  </section>
+</aside>
+</main>
+<footer>Permainan pembelajaran interaktif • Sejarah Tahun 4 • Prototip pendidikan</footer>
+
+<div class="modal" id="questionModal" role="dialog" aria-modal="true">
+  <div class="dialog">
+    <div class="dialog-head"><h2 id="modalTitle">🧠 Cabaran Sejarah</h2></div>
+    <div class="dialog-body">
+      <p class="question" id="questionText"></p>
+      <div class="answers" id="answers"></div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+    <div class="dialog-foot"><button class="primary" id="continueBtn" onclick="closeQuestion()" disabled>Teruskan ekspedisi →</button></div>
+  </div>
+</div>
+<div class="modal" id="endModal" role="dialog" aria-modal="true">
+  <div class="dialog end">
+    <div class="big" id="endEmoji">🏕️</div><h2 id="endTitle">Ekspedisi Tamat!</h2><p id="endText"></p><p><strong id="endScore"></strong></p>
+    <button class="primary" onclick="restart()">🔄 Main semula</button>
+  </div>
+</div>
+<script>
+const questions=[
+{q:"Apakah maksud Zaman Air Batu?",a:["Zaman ketika suhu bumi sangat sejuk dan banyak kawasan diliputi ais","Zaman semua manusia tinggal di bandar","Zaman tiada haiwan di bumi"],c:0,e:"Zaman Air Batu ialah tempoh ketika suhu bumi menurun dan ais meliputi kawasan yang luas."},
+{q:"Zaman Pleistosen bermula kira-kira…",a:["2.5 juta tahun dahulu","500 tahun dahulu","10 ribu tahun dahulu"],c:0,e:"Pleistosen bermula kira-kira 2.5 juta tahun dahulu dan berakhir sekitar 11,700 tahun dahulu."},
+{q:"Zaman Holosen bermula kira-kira…",a:["11,700 tahun dahulu","2.5 juta tahun dahulu","100 juta tahun dahulu"],c:0,e:"Holosen bermula sekitar 11,700 tahun dahulu dan berterusan hingga kini."},
+{q:"Apakah yang berlaku apabila suhu bumi meningkat pada akhir Zaman Air Batu?",a:["Ais mencair dan paras laut meningkat","Semua gunung hilang","Bumi berhenti berputar"],c:0,e:"Peningkatan suhu menyebabkan ais mencair dan paras laut meningkat."},
+{q:"Apakah kesan kenaikan paras laut di Asia Tenggara?",a:["Sebahagian kawasan daratan rendah ditenggelami air","Semua pulau menjadi lebih besar","Cuaca tidak berubah langsung"],c:0,e:"Kenaikan paras laut mengubah garis pantai dan menenggelamkan sebahagian kawasan daratan rendah."},
+{q:"Mengapa manusia memerlukan tempat perlindungan ketika cuaca sejuk?",a:["Untuk mengurangkan pendedahan kepada cuaca sejuk","Untuk menjadikan laut lebih cetek","Untuk menghentikan pencairan ais"],c:0,e:"Tempat perlindungan membantu manusia menghadapi cuaca dan persekitaran yang mencabar."},
+{q:"Apakah tindakan yang membantu mengekalkan kehangatan badan dalam permainan ini?",a:["Menyalakan api dengan kayu","Membuang semua bekalan","Berdiri di tengah ribut salji"],c:0,e:"Api boleh memberikan haba. Dalam permainan, kayu diperlukan untuk menyalakannya."},
+{q:"Apakah iktibar yang boleh diambil daripada perubahan alam sekitar?",a:["Manusia perlu menyesuaikan diri dan menjaga alam sekitar","Manusia tidak perlu memahami alam","Semua perubahan boleh dihentikan dengan segera"],c:0,e:"Manusia perlu memahami perubahan persekitaran, menyesuaikan diri dan menjaga kelestarian alam."},
+{q:"Apakah maksud kelestarian alam sekitar?",a:["Menjaga alam supaya terus seimbang untuk masa kini dan akan datang","Menggunakan semua sumber tanpa had","Membuang sampah ke sungai"],c:0,e:"Kelestarian bermaksud menggunakan dan memelihara sumber dengan bertanggungjawab untuk masa depan."},
+{q:"Mengapa penting untuk memelihara dan memulihara alam sekitar?",a:["Supaya ekosistem dan sumber alam terus terpelihara","Supaya semua hutan ditebang","Supaya haiwan kehilangan habitat"],c:0,e:"Pemeliharaan dan pemuliharaan membantu melindungi habitat, hidupan dan sumber alam."}
+];
+let state={day:1,health:100,warm:75,food:60,foodStock:3,wood:2,stone:1,score:0,quizCorrect:0,quizTotal:0,didFood:false,didFire:false,didShelter:false,gameOver:false,usedExtra:false,night:false,momoUsed:false,explored:0};
+
+let pendingCallback=null,currentQuestion=null,answered=false;
+const exploreQuestions=[
+{q:"Apakah yang menyebabkan paras laut meningkat pada akhir Zaman Air Batu?",a:["Pencairan ais yang banyak","Bumi berhenti berputar","Semua sungai mengering"],c:0,e:"Apabila ais mencair, air mengalir ke laut dan paras laut meningkat."},
+{q:"Zaman manakah bermula kira-kira 11,700 tahun dahulu?",a:["Holosen","Pleistosen","Zaman Logam"],c:0,e:"Holosen bermula kira-kira 11,700 tahun dahulu dan berterusan hingga kini."},
+{q:"Apakah kesan kenaikan paras laut kepada Pentas Sunda?",a:["Sebahagian daratan rendah ditenggelami air","Semua gunung tenggelam","Tiada perubahan garis pantai"],c:0,e:"Kenaikan paras laut mengubah garis pantai dan menenggelamkan sebahagian kawasan rendah."},
+{q:"Apakah tindakan yang membantu memelihara alam sekitar?",a:["Menggunakan sumber secara bertanggungjawab","Membuang sampah ke sungai","Menebang semua pokok"],c:0,e:"Penggunaan sumber secara bertanggungjawab membantu kelestarian alam."},
+{q:"Apakah maksud Zaman Air Batu?",a:["Tempoh suhu bumi rendah dan ais meliputi kawasan luas","Zaman semua lautan kering","Zaman manusia menggunakan komputer"],c:0,e:"Zaman Air Batu ialah tempoh suhu bumi rendah dan ais meliputi kawasan luas."},
+{q:"Mengapa manusia perlu menyesuaikan diri dengan perubahan alam sekitar?",a:["Untuk terus hidup dalam persekitaran yang berubah","Untuk menghentikan bumi berputar","Supaya semua ais kekal"],c:0,e:"Manusia menyesuaikan diri dengan persekitaran dan sumber yang tersedia."},
+{q:"Apakah yang boleh berlaku apabila ais mencair?",a:["Paras laut meningkat","Paras laut pasti menurun","Semua haiwan terus pupus"],c:0,e:"Pencairan ais menyumbang kepada peningkatan paras laut."},
+{q:"Bagaimanakah tempat perlindungan membantu manusia ketika cuaca sejuk?",a:["Mengurangkan pendedahan kepada angin dan kesejukan","Menambahkan paras laut","Menghentikan ribut salji"],c:0,e:"Tempat perlindungan mengurangkan pendedahan kepada cuaca yang mencabar."}
+];
+const explorePlaces=[
+{cls:"place-forest",name:"Lembah Hutan Purba",desc:"Kamu tiba di lembah dengan pokok-pokok dan sumber semula jadi."},
+{cls:"place-cave",name:"Gua Batu",desc:"Kamu menemui kawasan berbatu yang mungkin sesuai dijadikan tempat berlindung."},
+{cls:"place-lake",name:"Tasik Beku",desc:"Kamu tiba di tasik beku. Berhati-hati ketika bergerak di atas ais."},
+{cls:"place-valley",name:"Lembah Berangin",desc:"Kamu tiba di lembah terbuka yang berangin."}
+];
+
+const $=id=>document.getElementById(id);
+function log(msg){const p=document.createElement('p');p.textContent='• '+msg;$('logList').prepend(p)}
+function clamp(n){return Math.max(0,Math.min(100,n))}
+function update(){
+ $('healthNum').textContent=state.health+'%';$('warmNum').textContent=state.warm+'%';$('foodNum').textContent=state.food+'%';
+ $('healthBar').style.width=state.health+'%';$('warmBar').style.width=state.warm+'%';$('foodBar').style.width=state.food+'%';
+ $('foodStock').textContent=state.foodStock+' unit';$('woodStock').textContent=state.wood+' unit';$('stoneStock').textContent=state.stone+' unit';$('scoreStock').textContent=state.score+' mata';
+ $('dayPill').textContent='HARI '+Math.min(state.day,10)+' / 10';
+ $('timeBadge').textContent=state.night?'🌙 Malam':'☀️ Siang';
+ $('scene').classList.toggle('night',!!state.night);
+ $('momoBtn').disabled=state.gameOver||state.momoUsed;
+ $('momoStatus').textContent=state.momoUsed?'Momo sudah membantu hari ini. Cuba lagi esok!':'Momo boleh membantu sekali sehari untuk mencari sumber atau memberi kehangatan.';
+ $('missionFood').textContent=state.didFood?'Selesai ✓':'Cari makanan sekurang-kurangnya sekali';
+ $('missionFire').textContent=state.didFire?'Selesai ✓':'Nyalakan api sekurang-kurangnya sekali';
+ $('missionShelter').textContent=state.didShelter?'Selesai ✓':'Kukuhkan tempat berlindung';
+ $('missionQuiz').textContent=state.quizCorrect+' soalan dijawab betul';
+ const done=[state.didFood,state.didFire,state.didShelter,state.quizCorrect>0].filter(Boolean).length;
+ $('progressBar').style.width=(done/4*100)+'%';$('progressText').textContent='Kemajuan misi: '+Math.round(done/4*100)+'%';
+ $('gatherBtn').disabled=state.gameOver;$('fireBtn').disabled=state.gameOver;$('shelterBtn').disabled=state.gameOver;$('exploreBtn').disabled=state.gameOver;
+ if(state.warm<30){$('weather').textContent='🥶 Amaran: Terlalu sejuk';$('tipText').textContent='Suhu badan sangat rendah. Kumpulkan kayu dan nyalakan api secepat mungkin.'}
+ else if(state.food<25){$('weather').textContent='🍽️ Amaran: Bekalan rendah';$('tipText').textContent='Bekalan makanan semakin berkurang. Cari makanan untuk pulihkan tenaga.'}
+ else{$('weather').textContent=state.day>=3?'🌬️ Cuaca: Berangin':'🌨️ Cuaca: Sejuk'}
+}
+
+function startExplore(){
+ if(state.gameOver || $('exploreBtn').disabled) return;
+ const place=explorePlaces[state.explored % explorePlaces.length];
+ state.explored++;
+ const scene=$('scene'), explorer=$('explorer');
+ scene.classList.remove('place-forest','place-cave','place-lake','place-valley');
+ explorer.classList.remove('exploring');
+ void explorer.offsetWidth;
+ explorer.classList.add('exploring');
+ $('exploreBtn').disabled=true;
+ $('sceneMessage').textContent='Pengembara sedang bergerak ke kawasan baharu...';
+ log('Pengembara memulakan perjalanan ke kawasan baharu.');
+ let finished=false;
+ const arrive=function(){
+   if(finished) return;
+   finished=true;
+   explorer.classList.remove('exploring');
+   scene.classList.add(place.cls);
+   $('sceneMessage').textContent=place.name+'! '+place.desc;
+   const roll=Math.random();
+   let reward;
+   if(roll<0.45){state.wood+=2;reward='Kamu menjumpai kayu kering: +2 kayu.'}
+   else if(roll<0.70){state.stone+=1;reward='Kamu menjumpai batu: +1 batu.'}
+   else{state.foodStock+=1;state.food=clamp(state.food+10);reward='Kamu menemui makanan: +1 unit dan +10% bekalan.'}
+   state.warm=clamp(state.warm-8);
+   state.food=clamp(state.food-13);
+   if(state.food<20)state.health=clamp(state.health-8);
+   if(state.warm<20)state.health=clamp(state.health-10);
+   log(reward);update();
+   showExploreQuestion(function(){
+     $('exploreBtn').disabled=state.gameOver;
+     if(state.health<=0){finish(false);return;}
+     nextDay();
+   });
+ };
+ explorer.addEventListener('animationend',arrive,{once:true});
+ setTimeout(arrive,1700);
+}
+function showExploreQuestion(callback){
+ if(state.gameOver) return;
+ pendingCallback=callback;answered=false;
+ $('continueBtn').disabled=true;$('feedback').className='feedback';$('feedback').textContent='';
+ currentQuestion=exploreQuestions[Math.floor(Math.random()*exploreQuestions.length)];
+ $('modalTitle').textContent='🧭 Cabaran Sebelum Tiba';
+ $('questionText').textContent=currentQuestion.q;$('answers').innerHTML='';
+ currentQuestion.a.forEach((ans,i)=>{
+   const b=document.createElement('button');b.className='answer';
+   b.textContent=String.fromCharCode(65+i)+'. '+ans;
+   b.onclick=()=>answer(i,b);$('answers').appendChild(b);
+ });
+ $('questionModal').classList.add('show');
+}
+function action(type){
+ if(state.gameOver)return;
+ let msg='';
+ if(type==='gather'){
+   state.foodStock+=2;state.food=clamp(state.food+22);state.didFood=true;msg='Kamu mencari beri dan tumbuhan yang boleh dimakan. +2 unit makanan.';
+   $('sceneMessage').textContent='Bekalan ditemui! Tetapi terus berwaspada.';
+ }else if(type==='fire'){
+   if(state.wood<1){msg='Kayu tidak mencukupi. Teroka kawasan untuk mencari kayu.';log(msg);showQuestion(false);return}
+   state.wood--;state.warm=clamp(state.warm+28);state.health=clamp(state.health+3);state.didFire=true;msg='Api dinyalakan. Suhu badan meningkat.';
+   $('fire').textContent='🔥';$('sceneMessage').textContent='Api unggun memberikan kehangatan.';
+ }else if(type==='shelter'){
+   if(state.wood<1||state.stone<1){msg='Bahan tidak mencukupi. Teroka kawasan untuk mencari kayu dan batu.';log(msg);showQuestion(false);return}
+   state.wood--;state.stone--;state.warm=clamp(state.warm+12);state.health=clamp(state.health+8);state.didShelter=true;msg='Tempat perlindungan dikukuhkan. Kesihatan bertambah.';
+   $('sceneMessage').textContent='Tempat berlindung semakin kukuh.';
+ }else if(type==='explore'){
+   startExplore();
+   return;
+ }
+ state.food=clamp(state.food-5);
+ if(state.food<20){state.health=clamp(state.health-8)}
+ if(state.warm<20){state.health=clamp(state.health-10)}
+ log(msg);update();
+ if(state.health<=0){finish(false);return}
+ if(type==='explore'||type==='gather')showQuestion(false,()=>nextDay());
+ else nextDay();
+}
+function momoHelp(){
+ if(state.gameOver||state.momoUsed)return;
+ state.momoUsed=true;
+ const roll=Math.random();
+ if(roll<.34){state.foodStock+=2;state.food=clamp(state.food+18);log('Momo membantu mencari makanan. +2 unit makanan dan +18% bekalan.');$('sceneMessage').textContent='Momo membawa kamu ke tempat sumber makanan!'}
+ else if(roll<.67){state.wood+=2;state.warm=clamp(state.warm+14);log('Momo menemui kayu kering. +2 kayu dan +14% suhu.');$('sceneMessage').textContent='Momo menemui kayu kering berhampiran batu besar.'}
+ else{state.health=clamp(state.health+12);state.warm=clamp(state.warm+10);log('Momo menemani kamu berlindung daripada angin. +12% kesihatan dan +10% suhu.');$('sceneMessage').textContent='Momo melindungi kamu daripada angin sejuk.'}
+ $('momo').style.transform='translateY(-15px) scale(1.08)';
+ setTimeout(()=>$('momo').style.transform='',700);
+ update();
+}
+function triggerStorm(){
+ const scene=$('scene');scene.classList.remove('storm');void scene.offsetWidth;scene.classList.add('storm');
+ $('weather').textContent='🌨️ RIBUT SALJI!';$('sceneMessage').textContent='Ribut salji melanda! Cari perlindungan dan panaskan badan.';
+ state.warm=clamp(state.warm-14);state.health=clamp(state.health-5);
+ log('Ribut salji melanda! Suhu badan -14%, kesihatan -5%.');
+ setTimeout(()=>scene.classList.remove('storm'),2600);
+}
+function nextDay(){
+ if(state.gameOver)return;
+ if(state.day>=10){finish(true);return}
+ state.day++;state.night=!state.night;state.momoUsed=false;state.food=clamp(state.food-8);state.warm=clamp(state.warm-(state.night?11:7));
+ const weather=state.day===3?'Ribut salji menghampiri!':state.day===10?'Hari terakhir ekspedisi!':'Cuaca semakin mencabar.';
+ $('sceneMessage').textContent=weather;log('Hari '+state.day+' bermula. Bekalan perlu diurus dengan cermat.');update();
+ if(state.warm<15||state.food<15){$('tipText').textContent='Keadaan kritikal! Gunakan tindakan dengan bijak untuk terus bertahan.'}
+ if(state.day===3){triggerStorm();showQuestion(false)}
+}
+function showQuestion(extra=false,callback=null){
+ if(state.gameOver)return;
+ if($('questionModal').classList.contains('show'))return;
+ pendingCallback=callback;answered=false;$('continueBtn').disabled=true;$('feedback').className='feedback';$('feedback').textContent='';
+ currentQuestion=questions[Math.floor(Math.random()*questions.length)];
+ $('modalTitle').textContent=extra?'🧠 Cabaran Ilmu Tambahan':'🧠 Cabaran Sejarah';
+ $('questionText').textContent=currentQuestion.q;$('answers').innerHTML='';
+ currentQuestion.a.forEach((ans,i)=>{const b=document.createElement('button');b.className='answer';b.textContent=String.fromCharCode(65+i)+'. '+ans;b.onclick=()=>answer(i,b);$('answers').appendChild(b)});
+ $('questionModal').classList.add('show');
+}
+function answer(i,btn){
+ if(answered)return;answered=true;state.quizTotal++;
+ const buttons=[...$('answers').querySelectorAll('button')];buttons.forEach(b=>b.disabled=true);
+ const good=i===currentQuestion.c;
+ if(good){btn.classList.add('correct');state.score+=10;state.quizCorrect++;state.health=clamp(state.health+4);$('feedback').textContent='Betul! +10 mata ilmu dan +4% kesihatan. '+currentQuestion.e}
+ else{btn.classList.add('wrong');buttons[currentQuestion.c].classList.add('correct');state.health=clamp(state.health-3);$('feedback').textContent='Belum tepat. Kesihatan berkurang 3%. '+currentQuestion.e}
+ $('feedback').classList.add('show');$('continueBtn').disabled=false;update();
+}
+function closeQuestion(){
+ $('questionModal').classList.remove('show');
+ if(state.health<=0){finish(false);return}
+ if(pendingCallback){const cb=pendingCallback;pendingCallback=null;cb()}
+}
+function finish(survived){
+ state.gameOver=true;update();$('endEmoji').textContent=survived?'🏆':'🧊';$('endTitle').textContent=survived?'Ekspedisi Berjaya!':'Ekspedisi Terhenti';
+ $('endText').textContent=survived?'Kamu berjaya bertahan selama 10 hari di dunia Zaman Air Batu!':'Sumber semakin berkurang. Cuba lagi dengan strategi yang lebih baik.';
+ $('endScore').textContent='Mata ilmu: '+state.score+' • Soalan betul: '+state.quizCorrect+'/'+state.quizTotal+' • Kesihatan akhir: '+state.health+'%';
+ $('endModal').classList.add('show');
+}
+function restart(){
+ state={day:1,health:100,warm:75,food:60,foodStock:3,wood:2,stone:1,score:0,quizCorrect:0,quizTotal:0,didFood:false,didFire:false,didShelter:false,gameOver:false,usedExtra:false,night:false,momoUsed:false,explored:0};
+ $('logList').innerHTML='<p>• Ekspedisi bermula. Rancang tindakan dengan bijak!</p>';$('endModal').classList.remove('show');$('sceneMessage').textContent='Cari sumber sebelum ribut salji tiba!';$('fire').textContent='🔥';$('scene').classList.remove('night','storm');$('weather').textContent='🌨️ Cuaca: Sejuk';update();
+}
+function startGame(){document.getElementById('mainMenu').style.display='none';document.getElementById('sceneMessage').textContent='Ekspedisi bermula! Urus sumber dengan bijak.';log('Kamu memulakan ekspedisi. Momo bersedia membantu!');update();}
+update();
+</script>
+</body>
+</html>
